@@ -12,7 +12,7 @@ const secrets_1 = require("./secrets");
 const avg = (array) => (array.length ? array.reduce((a, b) => a + b) / array.length : 0);
 /** Get commits for a history file */
 const getHistoryItems = async (octokit, owner, repo, slug, page) => {
-    console.log("Fetching history - page", 1);
+    console.log("Fetching history - page", page);
     const results = await octokit.repos.listCommits({
         owner,
         repo,
@@ -24,7 +24,7 @@ const getHistoryItems = async (octokit, owner, repo, slug, page) => {
     if (!data[0])
         return [];
     if (data.length === 100 &&
-        !(0, dayjs_1.default)((data[0].commit.author || {}).date).isBefore((0, dayjs_1.default)().subtract(1, "year")))
+        !(0, dayjs_1.default)((data[0].commit.author || {}).date).isBefore((0, dayjs_1.default)().subtract(3, "month")))
         data.push(...(await getHistoryItems(octokit, owner, repo, slug, page + 1)));
     return data;
 };
