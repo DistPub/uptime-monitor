@@ -16,7 +16,7 @@ const getHistoryItems = async (
   slug: string,
   page: number
 ) => {
-  console.log("Fetching history - page", 1);
+  console.log("Fetching history - page", page);
   const results = await octokit.repos.listCommits({
     owner,
     repo,
@@ -28,7 +28,7 @@ const getHistoryItems = async (
   if (!data[0]) return [];
   if (
     data.length === 100 &&
-    !dayjs((data[0].commit.author || {}).date).isBefore(dayjs().subtract(1, "year"))
+    !dayjs((data[0].commit.author || {}).date).isBefore(dayjs().subtract(3, "month"))
   )
     data.push(...(await getHistoryItems(octokit, owner, repo, slug, page + 1)));
   return data;
