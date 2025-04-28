@@ -5,7 +5,7 @@ import { format } from "prettier";
 import { getResponseTimeForSite } from "./helpers/calculate-response-time";
 import { getUptimePercentForSite } from "./helpers/calculate-uptime";
 import { getConfig } from "./helpers/config";
-import { commit, push } from "./helpers/git";
+import { commit, push, pull } from "./helpers/git";
 import { getOctokit } from "./helpers/github";
 import { shouldContinue } from "./helpers/init-check";
 import { SiteStatus } from "./interfaces";
@@ -332,6 +332,8 @@ ${config.summaryEndHtmlComment || "<!--end: status pages-->"}${endText}`;
     })
     .join("\n");
 
+  pull()
+  
   await writeFile(
     join(".", "README.md"),
     format(readmeContent, { parser: "markdown" })
