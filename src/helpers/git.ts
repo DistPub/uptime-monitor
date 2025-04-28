@@ -19,3 +19,7 @@ export const push = () => {
 export const lastCommit = () => {
   return exec(`git log --format="%H" -n 1`).stdout;
 };
+
+export const pull = () => {
+  exec(`git pull`)
+}
