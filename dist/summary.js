@@ -194,6 +194,7 @@ ${config.summaryEndHtmlComment || "<!--end: status pages-->"}${endText}`;
         return line;
     })
         .join("\n");
+    (0, git_1.pull)();
     await (0, fs_extra_1.writeFile)((0, path_1.join)(".", "README.md"), (0, prettier_1.format)(readmeContent, { parser: "markdown" }));
     await (0, fs_extra_1.writeFile)((0, path_1.join)(".", ".gitattributes"), "# Markdown\n*.md linguist-detectable=true\n*.md linguist-documentation=false\n\n# JSON\n*.json linguist-detectable=true\n\n# YAML\n*.yml linguist-detectable=true\n");
     (0, git_1.commit)((config.commitMessages || {}).readmeContent ||
